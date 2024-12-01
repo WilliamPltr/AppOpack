@@ -12,6 +12,7 @@ from core.views import (
     CustomPasswordResetConfirmView,
     CustomPasswordResetCompleteView
 )
+from django.http import HttpResponse
 
 # Example view for the root path
 def root_view(request):
