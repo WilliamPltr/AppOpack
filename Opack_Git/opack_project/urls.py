@@ -13,7 +13,10 @@ from core.views import (
     CustomPasswordResetCompleteView
 )
 
-
+# Example view for the root path
+def root_view(request):
+    return HttpResponse("Welcome to the Opack application!")
+    
 urlpatterns = [
     # Administration
     path('grappelli/', include('grappelli.urls')),
@@ -38,6 +41,8 @@ urlpatterns = [
     path('password-reset/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
+    path('', root_view),  # Define root URL
 ]
 
 # Ajout des fichiers médias en mode DEBUG
