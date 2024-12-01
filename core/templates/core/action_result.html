@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Action réalisée{% endblock %}
+
+{% block content %}
+<h1>Action effectuée</h1>
+<p>{{ message }}</p>
+<p><strong>ID du Colis :</strong> {{ colis.id }}</p>
+<p><strong>État actuel :</strong> {{ colis.get_etat_display }}</p>
+<a href="{% url 'scan_colis' colis.id %}">Retourner aux détails du colis</a>
+{% endblock %}
