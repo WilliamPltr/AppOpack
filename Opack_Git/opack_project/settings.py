@@ -151,7 +151,7 @@ STATIC_ROOT = os.path.join(BASE_DIT, 'staticfiles/')
 # Configuration des fichiers médias
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-SITE_URL = "http://192.168.0.14:8000"
+#SITE_URL = "http://myipadress:8000"
 
 # Désactivation temporaire du cache (pour le développement)
 CACHE_MIDDLEWARE_SECONDS = 0
