@@ -40,20 +40,29 @@ class CustomLoginView(FormView):
 
 
 def signup(request):
+    # Récupérer l'URL "next" depuis la requête GET ou POST
+    next_url = request.GET.get('next', request.POST.get('next', '/'))
+
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
 
-            # Specify the backend explicitly
-            backend = 'core.utils.EmailBackend'  # Assuming EmailBackend is used
-            login(request, user, backend=backend)  # Pass the backend to the login function
+            # Spécifier le backend explicitement
+            backend = 'core.utils.EmailBackend'  # Supposons que EmailBackend est utilisé
+            login(request, user, backend=backend)  # Connexion avec le backend spécifié
             
             messages.success(request, "Votre compte a été créé avec succès !")
-            return redirect('login')
+            
+            # Redirige vers "next" ou vers "/" par défaut
+            return redirect(next_url)
     else:
         form = CustomUserCreationForm()
-    return render(request, 'core/signup.html', {'form': form})
+
+    return render(request, 'core/signup.html', {
+        'form': form,
+        'next': next_url,  # Passer "next" à la vue pour le template
+    })
 
 @login_required
 def account_view(request):
