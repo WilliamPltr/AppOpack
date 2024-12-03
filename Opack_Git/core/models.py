@@ -18,6 +18,8 @@ class User(AbstractUser):
     colis_en_attente = models.BooleanField(default=False, verbose_name="Colis en attente de validation")
     score = models.PositiveIntegerField(default=0, verbose_name="Score (sur 1000)")
 
+    last_login = None
+    
     def __str__(self):
         return self.email
 
