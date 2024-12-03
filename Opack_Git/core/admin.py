@@ -74,5 +74,4 @@ class CustomUserAdmin(UserAdmin):
         (None, {'fields': ('username', 'password')}),
         ('Informations personnelles', {'fields': ('email',)}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'groups', 'user_permissions')}),
-        ('Dates importantes', {'fields': ('last_login',)}),
     )
