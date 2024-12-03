@@ -2,52 +2,60 @@
 <html lang="fr">
 <head>
     {% load static %}
+    <!-- Inclusion du fichier CSS généré par Tailwind -->
     <link href="{% static 'css/output.css' %}" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bloc pour définir le titre de la page -->
     <title>{% block title %}Opack{% endblock %}</title>
 </head>
 <body class="bg-[#fffefb] text-[#2c3b2f] font-comfortaa">
     {% if not hide_header %}
-    <header class="bg-[#2c3b2f] text-[#fffefb] py-3">
-        <nav class="container mx-auto flex justify-end items-center space-x-4 text-sm">
-            <!-- Affiche "Accueil" uniquement si la page actuelle n'est pas "scan_colis" -->
-            {% if request.resolver_match.url_name != 'scan_colis' %}
-                {% if request.GET.next %}
-                    <a href="{{ request.GET.next }}" class="hover:underline">Accueil</a>
-                {% elif request.resolver_match.url_name == 'retour_colis' %}
-                    <a href="{% url 'scan_colis' colis.id %}" class="hover:underline">Accueil</a>
-                {% else %}
-                    <a href="{% url 'accueil' %}" class="hover:underline">Accueil</a>
+    <header class="bg-[#2c3b2f] text-[#fffefb] py-3 shadow-md rounded-b-xl">
+        <nav class="container mx-auto flex justify-between items-center px-6">
+            <!-- Logo d'Opack à gauche -->
+            <a href="https://www.opack.fr/" target="_blank" rel="noopener noreferrer" class="flex items-center">
+                <img src="{% static 'images/logo_blanc.png' %}" alt="Opack Logo Blanc" class="h-6">
+            </a>
+            
+            <!-- Navigation à droite -->
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <!-- Lien vers Accueil selon le contexte -->
+                {% if request.resolver_match.url_name != 'scan_colis' %}
+                    {% if request.GET.next %}
+                        <a href="{{ request.GET.next }}" class="text-xs md:text-sm font-bold hover:underline">
+                            Accueil
+                        </a>
+                    {% elif request.resolver_match.url_name == 'retour_colis' %}
+                        <a href="{% url 'scan_colis' colis.id %}" class="text-xs md:text-sm font-bold hover:underline">
+                            Accueil
+                        </a>
+                    {% else %}
+                        <a href="{% url 'accueil' %}" class="text-xs md:text-sm font-bold hover:underline">
+                            Accueil
+                        </a>
+                    {% endif %}
                 {% endif %}
-            {% endif %}
-
-            {% if user.is_authenticated %}
-                <!-- Mon compte -->
-                <a href="{% url 'account' %}?next={{ request.GET.next|default:request.path }}" 
-                   class="hover:underline">
-                    Mon compte
-                </a>
-                <!-- Déconnexion -->
-                <a href="{% url 'logout' %}?next={{ request.GET.next|default:request.path }}" 
-                   class="hover:underline">
-                    Déconnexion
-                </a>
-            {% else %}
-                <!-- Connexion -->
-                <a href="{% url 'login' %}?next={{ request.GET.next|default:request.path }}" 
-                   class="hover:underline">
-                    Connexion
-                </a>
-                <!-- Enregistrement -->
-                <a href="{% url 'signup' %}?next={{ request.GET.next|default:request.path }}" 
-                   class="hover:underline">
-                    Enregistrement
-                </a>
-            {% endif %}
+    
+                {% if user.is_authenticated %}
+                    <!-- Lien vers le compte pour les utilisateurs connectés -->
+                    <a href="{% url 'account' %}?next={{ request.GET.next|default:request.path }}" 
+                       class="text-xs md:text-sm font-bold hover:underline">
+                        Mon compte
+                    </a>
+                {% else %}
+                    <!-- Lien pour se connecter -->
+                    <a href="{% url 'login' %}?next={{ request.GET.next|default:request.path }}" 
+                       class="text-xs md:text-sm font-bold hover:underline">
+                        Se connecter
+                    </a>
+                {% endif %}
+            </div>
         </nav>
     </header>
     {% endif %}
+    
+    <!-- Contenu principal -->
     <main class="container mx-auto px-4 py-6">
         {% block content %}
         {% endblock %}
