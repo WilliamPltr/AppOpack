@@ -7,6 +7,9 @@ from .models import Colis, Profil
 from .forms import LoginForm, CustomUserCreationForm
 from .utils import authenticate_by_email
 
+"""
+Pas de commentaire sur celui là car trop de risque de casser la structure
+"""
 
 class CustomLoginView(FormView):
     template_name = 'core/login.html'
@@ -68,7 +71,12 @@ def signup(request):
 def account_view(request):
     try:
         profil = Profil.objects.get(utilisateur=request.user)
-        profil.score = 1000  # Fixer le score pour tester à 500/1000
+        
+        # Synchroniser le score avec celui de User
+        if profil.score != request.user.score:
+            profil.score = request.user.score
+            profil.save()
+
         jauge_score = (profil.score / 1000) * 100
         jauge_score = min(jauge_score, 100)
     except Profil.DoesNotExist:
@@ -79,11 +87,6 @@ def account_view(request):
         'profil': profil,
         'jauge_score': jauge_score,
     })
-
-
-
-
-
 
 def accueil(request):
     next_url = request.GET.get('next')
@@ -268,3 +271,37 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
             context = self.get_context_data()
             context['error_message'] = "Veuillez renseigner un ID de colis valide."
             return self.render_to_response(context)
+        
+
+def lost_page(request):
+    return render(request, 'core/lost.html')
+
+def colis_recherche(request):
+    if request.method == 'POST':
+        # Récupérer l'ID soumis
+        colis_id = request.POST.get('colis_id', '').strip()
+
+        # Vérifier si l'ID existe dans la base de données
+        if Colis.objects.filter(id=colis_id).exists():
+            # Rediriger vers la page du colis
+            return redirect(f'/colis/{colis_id}/')
+        else:
+            # Revenir à la page avec un message d'erreur
+            error_message = "Veuillez renseigner un ID de colis valide."
+            return render(request, 'core/lost.html', {'error_message': error_message})
+    else:
+        # Si la méthode n'est pas POST, retourner la page par défaut
+        return redirect('lost')
+
+from django.shortcuts import render
+
+def test_tailwind(request):
+    return render(request, 'core/test_tailwind.html')
+
+from django.shortcuts import redirect
+
+def custom_404_view(request, exception):
+    """
+    Redirige toutes les erreurs 404 vers la page root (/).
+    """
+    return redirect('/')
