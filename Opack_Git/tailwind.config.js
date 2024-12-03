@@ -1,12 +1,18 @@
 module.exports = {
+  mode: 'jit', // Active le mode JIT
   content: [
     './templates/**/*.html',   // Tous les fichiers HTML dans le dossier templates
     './core/templates/**/*.html', // Si tes templates Django sont dans un sous-dossier
     './static/**/*.js',        // Tous les fichiers JavaScript dans le dossier static
-    './static/**/*.css', // Ajout pour CSS
+    './static/**/*.css',       // Ajout pour CSS
   ],
   theme: {
-    extend: {},
+    extend: {
+      // Ajoutez votre ligne ici dans "extend"
+      borderRadius: {
+        '1.5xl': '1.125rem', // Entre "xl" (1rem) et "2xl" (1.5rem)
+      },
+    },
   },
   daisyui: {
     themes: [
