@@ -13,22 +13,24 @@
 
   <!-- Message inspirant -->
   <div class="w-full max-w-md bg-[#2c3b2f] text-white p-4 rounded-lg shadow-md mb-6">
-    <!-- Icône SVG -->
+    <!-- Icône et texte -->
     <div class="flex justify-center mb-2">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-[#ebc151]">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
       </svg>
     </div>
-    <p class="text-center text-xs font-comfortaa">
+    <p class="text-center text-sm font-comfortaa">
       <span class="font-bold">Merci pour ton geste ! 🌱</span><br>
       Grâce à toi, notre planète est un peu plus verte et durable. Ensemble, faisons la différence ! 💪
     </p>
   </div>
 
-  <!-- Étape 1 : Vidéo -->
+  <!-- Étape 1 : Vidéo d'instruction -->
   <div class="w-full max-w-md bg-white border-l-4 border-[#ebc151] rounded-lg shadow-md p-4 mb-6">
     <h2 class="text-lg font-bold text-[#2c3b2f] font-comfortaa mb-2">1. Repliez votre colis ✉️</h2>
-    <p class="text-sm text-[#2c3b2f] font-comfortaa mb-4">Suis les consignes de pliage pour un retour simple et rapide !</p>
+    <p class="text-sm text-[#2c3b2f] font-comfortaa mb-4">
+      Suis les consignes de pliage pour un retour simple et rapide !
+    </p>
     <div class="rounded-lg overflow-hidden aspect-video">
       <iframe 
         class="w-full h-full"
@@ -41,23 +43,25 @@
     </div>
   </div>
 
-  <!-- Étape 2 : Image -->
+  <!-- Étape 2 : Dépôt du colis -->
   <div class="w-full max-w-md bg-white border-l-4 border-[#2c3b2f] rounded-lg shadow-md p-4 mb-6">
     <h2 class="text-lg font-bold text-[#2c3b2f] font-comfortaa mb-2">2. Déposez-le dans une boîte aux lettres 📮</h2>
     <p class="text-sm text-[#2c3b2f] font-comfortaa mb-4">
       Dépose-le dans la boîte aux lettres jaune la plus proche. Pas d’inquiétude, c’est nous qui payons les frais d’envoi !
     </p>
+    <!-- Image de la boîte aux lettres -->
     <div class="rounded-lg overflow-hidden aspect-video">
       <img 
         src="{% static 'images/boite_aux_lettres.jpg' %}" 
         alt="Boîte aux lettres jaune"
         class="w-full h-full object-cover rounded-lg">
     </div>
+    <!-- Lien pour trouver une boîte aux lettres -->
     <div class="text-center mt-4">
       <a 
         href="https://localiser.laposte.fr/boites-aux-lettres" 
         target="_blank"
-        class="inline-block w-full max-w-xs text-[#2c3b2f] font-bold py-2 px-4 border border-black bg-white rounded-lg shadow-md hover:bg-[#ebc151] hover:text-black hover:shadow-lg transition">
+        class="inline-block w-full max-w-xs text-[#2c3b2f] font-bold py-2 px-4 border border-gray-300 bg-white rounded-lg shadow-md hover:shadow-lg hover:border-[#2c3b2f] transition-transform transform hover:-translate-y-1">
         📍 Trouver une boîte aux lettres
       </a>
     </div>
@@ -74,6 +78,7 @@
     </button>
   </form>
   {% else %}
+  <!-- Message et lien pour se connecter -->
   <p class="text-center text-sm text-red-500 font-comfortaa mt-4">
     Connecte-toi pour marquer le colis comme renvoyé.
   </p>
