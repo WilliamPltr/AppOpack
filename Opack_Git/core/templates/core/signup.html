@@ -1,5 +1,4 @@
 {% extends 'core/base.html' %}
-
 {% load static %}
 
 {% block title %}Créer un compte{% endblock %}
@@ -7,22 +6,22 @@
 {% block content %}
 <div class="flex justify-center items-center h-[calc(100vh-5rem)] bg-[#fffefb]">
     <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-sm">
-        <!-- Logo -->
+        <!-- Logo Opack -->
         <div class="text-center mb-6">
             <img src="{% static 'logo.png' %}" alt="Opack Logo" class="h-14 mx-auto">
         </div>
 
-        <!-- Titre -->
+        <!-- Titre principal -->
         <h1 class="text-2xl font-bold text-center text-[#2c3b2f] font-comfortaa">Créer un compte</h1>
         <p class="text-center text-sm text-gray-600 mt-2 mb-6">
             Rejoignez Opack pour une expérience unique.
         </p>
 
-        <!-- Formulaire -->
+        <!-- Formulaire d'enregistrement -->
         <form method="post" class="space-y-6">
             {% csrf_token %}
-            
-            <!-- Afficher les erreurs globales -->
+
+            <!-- Gestion des erreurs globales -->
             {% if form.non_field_errors %}
             <div class="text-sm text-red-500 bg-red-100 p-3 rounded-md">
                 {{ form.non_field_errors|first }}
@@ -111,6 +110,7 @@
                 {% endif %}
             </div>
 
+            <!-- Bouton d'enregistrement -->
             <button
                 type="submit"
                 class="w-full rounded-lg bg-primary py-2 px-4 text-sm font-bold text-white hover:bg-opacity-90 focus:ring-2 focus:ring-primary focus:outline-none">
@@ -118,7 +118,7 @@
             </button>
         </form>
 
-        <!-- Liens supplémentaires -->
+        <!-- Lien pour connexion -->
         <div class="text-center mt-4 text-sm">
             Déjà un compte ?
             <a href="{% url 'login' %}?next={{ request.GET.next|default:'/' }}" class="text-primary font-bold hover:underline">Se connecter</a>
