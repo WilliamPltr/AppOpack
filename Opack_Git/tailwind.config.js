@@ -1,5 +1,4 @@
 module.exports = {
-  mode: 'jit', // Active le mode JIT
   content: [
     './templates/**/*.html',   // Tous les fichiers HTML dans le dossier templates
     './core/templates/**/*.html', // Si tes templates Django sont dans un sous-dossier
@@ -8,7 +7,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // Ajoutez votre ligne ici dans "extend"
       borderRadius: {
         '1.5xl': '1.125rem', // Entre "xl" (1rem) et "2xl" (1.5rem)
       },
