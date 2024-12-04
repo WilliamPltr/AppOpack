@@ -65,23 +65,29 @@ class Colis(models.Model):
     date_derniere_utilisation = models.DateTimeField(null=True, blank=True)
     qr_code = models.ImageField(upload_to='qr_codes/', blank=True, null=True)
 
-    def generate_qr_code(self, request):
-        """
-        Génère un QR code avec l'URL du colis.
-        """
-        if not request:
-            raise ValueError("La méthode `generate_qr_code` nécessite un objet `request`.")
 
-        url = request.build_absolute_uri(reverse("scan_colis", kwargs={"colis_id": self.id}))
+    
+    def generate_qr_code(self, base_url=None, request=None):
+        """
+        Génère un QR code avec l'URL du colis. Utilise `base_url` si `request` n'est pas fourni.
+        """
+        if request:
+            url = request.build_absolute_uri(reverse("scan_colis", kwargs={"colis_id": self.id}))
+        elif base_url:
+            url = f"{base_url.rstrip('/')}{reverse('scan_colis', kwargs={'colis_id': self.id})}"
+        else:
+            raise ValueError("Un `request` ou un `base_url` est requis pour générer un QR code.")
+    
         qr = qrcode.QRCode(version=1, box_size=10, border=5)
         qr.add_data(url)
         qr.make(fit=True)
         img = qr.make_image(fill="black", back_color="white")
-
+    
         buffer = BytesIO()
         img.save(buffer, format="PNG")
         self.qr_code.save(f"{self.id}.png", ContentFile(buffer.getvalue()), save=False)
         buffer.close()
+
 
     def calcul_economie_co2(self):
         """
