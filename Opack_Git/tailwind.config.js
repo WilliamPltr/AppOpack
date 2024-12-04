@@ -1,9 +1,9 @@
 module.exports = {
   content: [
-    './templates/**/*.html',   // Tous les fichiers HTML dans le dossier templates
-    './core/templates/**/*.html', // Si tes templates Django sont dans un sous-dossier
-    './static/**/*.js',        // Tous les fichiers JavaScript dans le dossier static
-    './static/**/*.css',       // Ajout pour CSS
+    './templates/**/*.html', // Tous les templates HTML
+    './core/templates/**/*.html', // Sous-dossiers dans core
+    './static/css/**/*.css', // Fichiers CSS dans static/css
+    './static/**/*.js', // Fichiers JS dans static
   ],
   theme: {
     extend: {
